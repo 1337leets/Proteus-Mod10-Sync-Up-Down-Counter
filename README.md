@@ -41,7 +41,21 @@ flip-flops and gates was the point of the exercise.
 
 ## Development History
 
-Each version in `history/` adds one step toward the final design:
+### Early attempts (`history/early/`)
+
+Before the mod-10 line, the counters were built in several smaller steps:
+
+| File | Step |
+|------|------|
+| `jk-ff-counter-5.pdsprj` | First JK flip-flop counter, 74LS series with a 74LS47 display decoder |
+| `senkron-counter-10.pdsprj` | Synchronous decade counter |
+| `3-digit-counter.pdsprj` | Three cascaded digits |
+| `1-digit-up-down-counter.pdsprj` | First up/down digit, moved to the 74HC series |
+| `3-digit-up-down-counter.pdsprj` | Three up/down digits |
+
+### Mod-10 line (`history/`)
+
+Each version adds one step toward the final design:
 
 | File | Step |
 |------|------|
