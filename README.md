@@ -1,22 +1,22 @@
 # Proteus Mod-10 Synchronous Up/Down Counter
 
-A 4-digit synchronous decimal (BCD) up/down counter built from discrete
-74-series logic in Proteus: JK flip-flops, gates, multiplexers and 7-segment
-decoders, with carry-in and carry-out so it can be cascaded further. It was a
-self-directed summer project, designed from scratch.
+A 4-digit synchronous decimal (BCD) up/down counter built in Proteus from
+discrete 74-series logic, using JK flip-flops, gates, multiplexers and
+7-segment decoders. Carry-in and carry-out let it be cascaded further. It was
+a self-directed summer project, designed from scratch.
 
 ![4-digit counter schematic](images/4_digit_counter.png)
 
 ## Features
 
-- Counts 0000–9999 up or down, selected with a single `UP/DOWN` input
-- Fully synchronous: every flip-flop shares the same `CLK`, there is no ripple between digits
-- `CARRY-IN` enables counting; `CARRY-OUT` lets another counter block be chained after the last digit
+- Counts 0000 to 9999 up or down, selected with a single `UP/DOWN` input
+- Fully synchronous, since every flip-flop shares the same `CLK` and nothing ripples between digits
+- `CARRY-IN` enables counting, and `CARRY-OUT` lets another counter block be chained after the last digit
 - Each digit drives its own common-anode 7-segment display
 
 ## Structure
 
-The four digits are identical stages. Each stage has:
+The four digits are identical stages, and each stage is made of the parts below.
 
 | Part | Chip | Role |
 |------|------|------|
@@ -25,17 +25,18 @@ The four digits are identical stages. Each stage has:
 | Up/down selection | 74HC157 (quad 2:1 MUX) | Switches the flip-flop inputs between the up and the down logic with `UP/DOWN` |
 | Display driver | 74LS247 + 330 Ω resistors | BCD to 7-segment decoder for the common-anode display |
 
-The asynchronous set and reset inputs of every flip-flop are tied inactive.
-The 9 → 0 (and 0 → 9) wrap-around is not done by resetting the flip-flops:
-the J/K equations for both directions were derived with Karnaugh maps so
-that the next-state logic itself only walks through the ten BCD states.
+The asynchronous set and reset inputs of every flip-flop are tied inactive,
+so the wrap-around from 9 to 0 (and from 0 to 9 when counting down) is not
+done by resetting the flip-flops. Instead, the J/K equations for both
+directions were derived with Karnaugh maps so that the next-state logic itself
+only walks through the ten BCD states.
 
 `CARRY-IN` gates the J/K inputs of the first digit, so it works as a count
 enable. A digit only advances when every lower digit is at its terminal count
-(9 when counting up, 0 when counting down) and `CARRY-IN` is high; the same
+(9 when counting up, 0 when counting down) and `CARRY-IN` is high. The same
 condition on the last digit produces `CARRY-OUT`.
 
-The design uses JK flip-flops; a modern implementation would more likely use
+The design uses JK flip-flops. A modern implementation would more likely use
 D flip-flops or a single programmable device, but building it from JK
 flip-flops and gates was the point of the exercise.
 
@@ -43,7 +44,7 @@ flip-flops and gates was the point of the exercise.
 
 ### Early attempts (`history/early/`)
 
-Before the mod-10 line, the counters were built in several smaller steps:
+Before the mod-10 line, the counters were built in several smaller steps.
 
 | File | Step |
 |------|------|
@@ -55,7 +56,7 @@ Before the mod-10 line, the counters were built in several smaller steps:
 
 ### Mod-10 line (`history/`)
 
-Each version adds one step toward the final design:
+Each version adds one step toward the final design.
 
 | File | Step |
 |------|------|
